@@ -1,6 +1,5 @@
 node{
     stage('Build') {
-        step
         sh 'mvn clean package'
         post {
             echo "Archiving"
