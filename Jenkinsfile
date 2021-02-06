@@ -4,7 +4,7 @@ node{
         echo "Archiving"
         archiveArtifacts artifacts:'**/target/*.war'
     }
-    stage('Deploy') {
-        echo "Deploy step..."
+    stage('Deploy to staging') {
+        build job: 'deploy_to_staging'
     }
 }
