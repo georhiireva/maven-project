@@ -8,9 +8,9 @@ node{
         archiveArtifacts artifacts:'**/target/*.war'
     }
     stage('Test') {
-        brat 'chcp'
+        bat 'chcp'
         bat 'chcp 1251'
-        brat 'chcp'
+        bat 'chcp'
     }
     stage('Deployments') {
         parallel staging: {bat 'copy **/target/*.war C:/Apache/apache-tomcat-9.0.41/webapps'},
