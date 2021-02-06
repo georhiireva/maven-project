@@ -9,7 +9,7 @@ node{
     }
     stage('Deploy to prod') {
         timeout(time:5, unit:'DAYS')
-            unput mesage:'Approve prod deployment?'
+            input mesage:'Approve prod deployment?'
         build job:'deploy_to_prod'
     }
 }
