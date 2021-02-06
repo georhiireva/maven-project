@@ -1,5 +1,5 @@
 node{
-    triggers {
+    pipelineTriggers {
         pollSCM('*/5 * * * *')
     }
     stage('Build') {
