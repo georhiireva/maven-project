@@ -1,16 +1,23 @@
 node{
+    triggers {
+        pollSCM('*/5 * * * *')
+    }
     stage('Build') {
         bat 'mvn clean package'
         echo "Archiving"
         archiveArtifacts artifacts:'**/target/*.war'
     }
-    stage('Deploy to staging') {
-        build job: 'deploy_to_staging'
-    }
-    stage('Deploy to prod') {
-        timeout(time:5, unit:'DAYS') {
-            input message:'Approve prod deployment?'
-        }    
-        build job:'deploy_to_prod'
-    }
+    stage('Deployments') {
+        parallel {
+            stage('Deploy to staging') {
+                bat 'copy **/target/*.war C:\Apache\apache-tomcat-9.0.41\webapps' 
+            }
+            stage('Deploy to prod') {
+                timeout(time:5, unit:'DAYS') {
+                    input message:'Approve prod deployment?'
+                }    
+                 bat 'copy **/target/*.war C:\Apache\apache-tomcat-9.0.41_prod\webapps'
+            }
+        }
+    }  
 }
