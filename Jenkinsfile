@@ -12,10 +12,7 @@ node{
             stage('Deploy to staging') {
                 bat 'copy **/target/*.war C:\Apache\apache-tomcat-9.0.41\webapps' 
             }
-            stage('Deploy to prod') {
-                timeout(time:5, unit:'DAYS') {
-                    input message:'Approve prod deployment?'
-                }    
+            stage('Deploy to prod') {   
                  bat 'copy **/target/*.war C:\Apache\apache-tomcat-9.0.41_prod\webapps'
             }
         }
